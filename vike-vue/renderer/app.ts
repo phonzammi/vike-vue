@@ -2,6 +2,7 @@ import { createApp, createSSRApp, defineComponent, h, markRaw, reactive } from '
 import type { Component, PageProps } from './types'
 import type { Config, PageContext } from 'vike/types'
 import { setPageContext } from '../components/usePageContext.js'
+import { render } from 'vike/abort'
 
 export { createVueApp }
 
@@ -48,6 +49,25 @@ function createVueApp(pageContext: PageContext, ssrApp = true, renderHead = fals
   // We use `app.changePage()` to do Client Routing, see `onRenderClient.ts`
   objectAssign(app, {
     changePage: (pageContext: PageContext) => {
+      // let err: unknown
+      app.config.errorHandler = (err_) => {
+        // err = err_ // err still undefinded for first time navigate to an error page, but will be defined when navigating from an error page
+        if (err_) location.reload() // Note (@phonzammi) : AFAIK working workaround right now, even in production build
+        // if (err_) throw render(500) // this condition return the following error :
+        /**
+         * abort.js:77 Uncaught (in promise) Error: AbortRender
+         * at AbortRender (abort.js:77:17)
+         * at render_ (abort.js:73:16)
+         * at render (abort.js:47:12)
+         * at app2.config.errorHandler (app.js:46:27)
+         * at callWithErrorHandling (runtime-core.esm-bundler.js:158:18)
+         * at handleError (runtime-core.esm-bundler.js:199:7)
+         * at callWithErrorHandling (runtime-core.esm-bundler.js:160:5)
+         * at setupStatefulComponent (runtime-core.esm-bundler.js:7331:25)
+         * at setupComponent (runtime-core.esm-bundler.js:7292:36)
+         * at mountComponent (runtime-core.esm-bundler.js:5687:7)
+         */
+      }
       Object.assign(pageContextReactive, pageContext)
       rootComponent.Page = markRaw(pageContext.Page)
       rootComponent.pageProps = markRaw(pageContext.pageProps || {})

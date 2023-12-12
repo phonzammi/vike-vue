@@ -128,6 +128,9 @@ importers:
         specifier: ^4.4.9
         version: 4.4.9(@types/node@20.10.4)
     devDependencies:
+      '@brillout/picocolors':
+        specifier: ^1.0.10
+        version: 1.0.10
       '@brillout/release-me':
         specifier: ^0.1.12
         version: 0.1.12
@@ -198,6 +201,9 @@ packages:
   /@brillout/json-serializer@0.5.8:
     resolution: {integrity: sha512-vEuXw30ok+mJfJutOxXKBb4lBJ0HymA7lev9PcYK6W/hzjhCTPk9Bdk85HrcNcKZWRQiwoWtw0F2Di4TRJ7ssQ==}
     dev: false
+
+  /@brillout/picocolors@1.0.10:
+    resolution: {integrity: sha512-dh+JJlsBf3QYX+91Ezma8RLKNOjGDoBBmORv/NzRpQuasdyzwQCMXGGjsDu12ZhGz92TqQbL9pv79rvbheI21A==}
 
   /@brillout/picocolors@1.0.9:
     resolution: {integrity: sha512-Lt/W5JsA75hcDJ2cOAlE4TqSMl6c9K+rXGRo/cU2fApnmhbRcNdkR4UHQDAwtWfZyUKWaxdwSui+jp+74J1pZg==}
@@ -2351,7 +2357,7 @@ packages:
     dependencies:
       '@brillout/import': 0.2.3
       '@brillout/json-serializer': 0.5.8
-      '@brillout/picocolors': 1.0.9
+      '@brillout/picocolors': 1.0.10
       '@brillout/require-shim': 0.1.2
       '@brillout/vite-plugin-import-build': 0.2.20
       acorn: 8.10.0
